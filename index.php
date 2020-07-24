@@ -125,9 +125,10 @@
     //BACK BUTTON
   
        
-        $url = htmlspecialchars($_SERVER['HTTP_REFERER']);
-        echo "<a class='back' href='$url'>Back</a>";
-    ?>
+        // $url = htmlspecialchars($_SERVER['HTTP_REFERER']);
+        // echo "<a class='back' href='$url'>Back</a>";
+        ?>
+        <a href = "javascript:history.back()">Back to previous page</a>
     
     <!-- CREATE DIRECTORY BUTTON -->
     
