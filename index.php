@@ -132,7 +132,7 @@
     
     <!-- CREATE DIRECTORY BUTTON -->
     
-    <form action="/FsExplorerPHP" method="get">
+    <form action="/FileBrowser" method="get">
         <input type="hidden" name="path" value="<?php print($_GET['path'])?>"> 
         <input placeholder="Name of new directory" type="text" name="createfolder">
         <button type="submit">Submit</button>
