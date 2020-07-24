@@ -1,6 +1,5 @@
 body{
     text-align: center;
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -10,6 +9,7 @@ body{
     width: 100;
     height: 100vh;
 }
+
 table{
     border-collapse: collapse;
     width: 100%;
@@ -26,10 +26,18 @@ td, a{
     text-decoration: none; 
     color: white;
 }
+p {
+    pointer-events: none;
+    text-align: center;
+    padding: 20px 0 0  50px ;
+    float: left;
+    font-size: 35px;
+
+}
+
 a:hover{
     color: black;
 }
-
 .table, th {
     color: white;
     background-color: #4CAF50;
@@ -40,6 +48,7 @@ a:hover{
         background-color: #f2f2f2;
     } */
 a.back {
+    position: fixed;
     border:  1px solid black;
     background-color: lightgray;
     text-decoration: none;   
@@ -56,6 +65,7 @@ a.back:hover {
 }
 .delete{
     display: inline-block;
+    color: #4CAF50;
 }
 .delete:hover {
     color: white;
@@ -81,6 +91,7 @@ h2{
     padding: 8px 0;
     color: white;
 }
+
 .textbox{
     width: 100%;
     overflow: hidden;
@@ -107,3 +118,16 @@ h2{
     right: 10px;
     top: 40px;
 }
+.submitf {
+    position: fixed;
+    padding: 25px 0 0 15px;
+    float: left;
+}
+.subbtn{
+    color: green;
+}
+.subbtn:hover{
+    background-color: #4CAF50;
+    color: white;
+}
+

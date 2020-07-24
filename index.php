@@ -21,6 +21,30 @@
         header("Location: index.php");
         // print('Logged out!');
     }
+    //DELETE FILES LOGIC
+    
+    if(isset($_POST['delete'])){
+        $objToDelete = './' . $_GET["path"] . $_POST['delete']; 
+        $objToDeleteEscaped = str_replace("&nbsp;", " ", htmlentities($objToDelete, null, 'utf-8'));
+        if(is_file($objToDeleteEscaped)){
+            if (file_exists($objToDeleteEscaped)) {
+                unlink($objToDeleteEscaped);
+            }
+        }
+    }
+      
+    //DIRECTORY CREATE LOGIC
+        
+            
+        if(isset($_GET["createfolder"])){
+            if($_GET["createfolder"] != ""){
+                $creDir = './' . $_GET["path"] . $_GET["createfolder"];
+                if (!is_dir($creDir)) mkdir($creDir, "0777", true); 
+            }
+            
+            $url = preg_replace("/(&?|\??)createfolder=(.+)?/", "", $_SERVER["REQUEST_URI"]);
+            header('Location: ' . urldecode($url));
+        }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,11 +77,9 @@
         // $curdir=getcwd();
         // echo "$curdir <br><br>";
 
-        print('<h2>Explorer content:</h2>');
+        print('<p class="exp">Explorer content:</p>');
         
-
-        
-
+        // PATH FIND WHERE'R FILES
             $path= './' . $_GET["path"];
             $files = scandir($path);
 
@@ -74,7 +96,7 @@
                  //DELETE BUTTON
                     print('<td>'. (is_dir($path . $file) ? '': 
                     '<form action="" method="post">
-                    <input type="hidden" name="delete" value="">
+                    <input type="hidden" name="delete" value='. str_replace(' ', '&nbsp;', $file) . '>
                     <input class="delete" type="submit" value="Delete" onclick="msg()">
                     </form>')
                  //DOWNLOAD BUTTON
@@ -88,61 +110,33 @@
                 print('</tr>');
             }
         }
-        print('</table>');
-
-    //DELETE FILES LOGIC
-            $files = [''];
-            
-            foreach ($files as $file) {
-                if (file_exists($file)) {
-                    unlink($file);
-                } else {
-                    // File not found.
-                }
-            }
-    
-
-
-        
-    //DIRECTORY CREATE LOGIC
-        
-            
-        if(isset($_GET["createfolder"])){
-            if($_GET["createfolder"] != ""){
-                $creDir = './' . $_GET["path"] . $_GET["createfolder"];
-                if (!is_dir($creDir)) mkdir($creDir, "0777", true); 
-            }
-            
-            $url = preg_replace("/(&?|\??)createfolder=(.+)?/", "", $_SERVER["REQUEST_URI"]);
-            header('Location: ' . urldecode($url));
-        }
-        
-              
-       
-     
-        
+        print('</table>');   
     
     //BACK BUTTON
-  
        
         // $url = htmlspecialchars($_SERVER['HTTP_REFERER']);
         // echo "<a class='back' href='$url'>Back</a>";
-        ?>
-        <a href = "javascript:history.back()">Back to previous page</a>
-    
+        
+        //OR
+    ?>
+        <a class='back' href = "javascript:history.back()">Back </a>
+        <!-- //BACK BUTTON -->
+
     <!-- CREATE DIRECTORY BUTTON -->
     
-    <form action="/FileBrowser" method="get">
-        <input type="hidden" name="path" value="<?php print($_GET['path'])?>"> 
-        <input placeholder="Name of new directory" type="text" name="createfolder">
-        <button type="submit">Submit</button>
+    
+    <form class="submitf"  action="/FileBrowser" method="get">
+        <input  type="hidden" name="path" value="<?php print($_GET['path'])?>"> 
+        <input  placeholder="Name of new directory" type="text" name="createfolder">
+        <button class= "subbtn" type="submit">Submit</button>
     </form>
+    
 
 </body>
 <script>
     function msg() {
         alert("HEY!!! Stop clicking, It's not working yet!");
-        alert("Ok, ok... It was a joke! File will be deleted by pressing 'OK' ");
+        alert("Meh...It was a joke! File will be deleted by pressing 'OK' ");
     };
 </script>
 </html>
