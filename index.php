@@ -24,11 +24,11 @@
     //DELETE FILES LOGIC
     
     if(isset($_POST['delete'])){
-        $objToDelete = './' . $_GET["path"] . $_POST['delete']; 
-        $objToDeleteEscaped = str_replace("&nbsp;", " ", htmlentities($objToDelete, null, 'utf-8'));
-        if(is_file($objToDeleteEscaped)){
-            if (file_exists($objToDeleteEscaped)) {
-                unlink($objToDeleteEscaped);
+        $deleting = './' . $_GET["path"] . $_POST['delete']; 
+        $deletingFiles = str_replace("&nbsp;", " ", htmlentities($deleting, null, 'utf-8'));
+        if(is_file($deletingFiles)){
+            if (file_exists($deletingFiles)) {
+                unlink($deletingFiles);
             }
         }
     }
