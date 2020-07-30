@@ -29,6 +29,6 @@
 3. Go to "localhost" and open "/FileBrowser" directory. **Notice!** AMPP software have to be working. This App allows you to open your computer "localhost"; 
 ---------------------------------------
 
-##### There are some bugs,that have to be fixed in a future. //This is the first version of this project//.This is 1.1 version with some fixed bugs.
+##### There are some bugs,that have to be fixed in a future. This is 1.1 version with some fixed bugs.
 
 ### Author: [Viktoras Jonutis](https://github.com/Vikteris?tab=repositories)
