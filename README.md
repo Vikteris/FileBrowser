@@ -1,4 +1,4 @@
-## FileBrowser 1.0
+## FileBrowser 1.1
 
 # First sprint work with PHP.
 
@@ -13,11 +13,11 @@
 - [x] Traveling through directories;
 - [x] Creating directories;
 - [x] Delete files;
-- [ ] Choose files from computer;
-- [ ] Upload files;
-- [ ] Download files;
+- [x] Choose files from computer;
+- [x] Upload files;
+- [x] Download files;
 
-        **Warning! Dont delete index.php file**
+        **Warning! Do not delete index.php file**
   
 - [x] Shows what's working right now;
 
@@ -29,6 +29,6 @@
 3. Go to "localhost" and open "/FileBrowser" directory. **Notice** AMPP software have to be working. App allows you to open your computer "localhost"; 
 ---------------------------------------
 
-##### There are some bugs,that have to be fixed in a future. This is the first version of this project.
+##### There are some bugs,that have to be fixed in a future. //This is the first version of this project//.This is 1.1 version with some fixed bugs.
 
 ### Author: [Viktoras Jonutis](https://github.com/Vikteris?tab=repositories)

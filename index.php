@@ -19,7 +19,6 @@
         unset($_SESSION['password']);
         unset($_SESSION['logged_in']);
         header("Location: index.php");
-        // print('Logged out!');
     }
     //DELETE FILES LOGIC
     
@@ -32,7 +31,6 @@
             }
         }
     }
-      
     //DIRECTORY CREATE LOGIC
         
             
@@ -45,6 +43,52 @@
             $url = preg_replace("/(&?|\??)createfolder=(.+)?/", "", $_SERVER["REQUEST_URI"]);
             header('Location: ' . urldecode($url));
         }
+
+    //FILES TO DOWNLOAD LOGIC
+    if(isset($_POST['download'])){
+        $file='./' . $_GET["path"] . $_POST['download'];
+        $download_file = str_replace("&nbsp;", " ", htmlentities($file, null, 'utf-8'));
+        ob_clean();
+        ob_start();
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment; filename=' . basename($download_file));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($download_file));
+        ob_end_flush();
+        readfile($download_file);
+        exit;
+    }
+    //FILES TO UPLOAD LOGIC
+      
+      if(isset($_FILES['fileupld'])){
+        $errors= array();
+        $file_name = $_FILES['fileupld']['name'];
+        $file_size = $_FILES['fileupld']['size'];
+        $file_tmp = $_FILES['fileupld']['tmp_name'];
+        $file_type = $_FILES['fileupld']['type'];
+        $file_ext = strtolower(end(explode('.', $_FILES['fileupld']['name'])));
+        
+        $extensions= array("png", "txt");
+        
+        if(in_array($file_ext , $extensions) === false){
+           $errors[] = "extension not allowed, please choose  PNG or TXT file.";
+        }
+        
+        if($file_size > 2097152) {
+           $errors[] = 'File size must be below 2 MB';
+        }
+        
+        if(empty($errors)==true) {
+           move_uploaded_file($file_tmp, './' . $_GET["path"] . $file_name);
+        }else{
+            print('<br>');
+            print_r($errors);
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,12 +115,7 @@
      }
         print('<h6 class="logbtn">Click here to <a  href = "index.php?action=logout"> logout.</h6>');
 
-
-
-        // direktorijos,kurioje dirbama, nuskaitymas
-        // $curdir=getcwd();
-        // echo "$curdir <br><br>";
-
+     
         print('<p class="exp">Explorer content:</p>');
         
         // PATH FIND WHERE'R FILES
@@ -102,7 +141,7 @@
                  //DOWNLOAD BUTTON
                     . (is_dir($path . $file) ? '': 
                     '<form action="" method="post">
-                    <input type="hidden" name="download" value="">
+                    <input type="hidden" name="download" value='. str_replace(' ', '&nbsp;', $file) . '>
                     <input class="download" type="submit" value="Download">
                     </form>').
                     '</td>');
@@ -111,29 +150,36 @@
             }
         }
         print('</table>');   
-    
-    //BACK BUTTON
-       
-        // $url = htmlspecialchars($_SERVER['HTTP_REFERER']);
-        // echo "<a class='back' href='$url'>Back</a>";
         
-        //OR
-    ?>
-        <a class='back' href = "javascript:history.back()">Back </a>
-        <!-- //BACK BUTTON -->
+        ?>
+
+    <!-- BACK BUTTON -->
+        
+        <a class='back' onclick="goBack()">Back </a>
+        
 
     <!-- CREATE DIRECTORY BUTTON -->
-    
-    
-    <form class="submitf"  action="/FileBrowser" method="get">
+    <form class="submitf"  action="<?php $path ?>" method="get">
         <input  type="hidden" name="path" value="<?php print($_GET['path'])?>"> 
         <input  placeholder="Name of new directory" type="text" name="createfolder">
         <button class= "subbtn" type="submit">Submit</button>
     </form>
+
+    <!-- CREATE CHOOSE AND UPLOAD BUTTON -->
     
+    <form class="choose" action="" method="post" enctype="multipart/form-data">
+            <input type="file" name="fileupld" id="file">
+            <button type="submit">Upload file</button>
+            <p class="notification">Allows to use only PNG and TXT formats</p>
+        </form>
+
+
 
 </body>
 <script>
+    function goBack() {
+        window.history.back();
+    }
     function msg() {
         alert("HEY!!! Stop clicking, It's not working yet!");
         alert("Meh...It was a joke! File will be deleted by pressing 'OK' ");

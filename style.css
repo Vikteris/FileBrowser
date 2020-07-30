@@ -6,7 +6,7 @@ body{
     background: url(bg.jpg) no-repeat;
     background-size: cover;
     text-decoration: none;
-    width: 100;
+    width: 100%;
     height: 100vh;
 }
 
@@ -44,9 +44,6 @@ a:hover{
     text-decoration: none; 
     text-decoration:  #4CAF50;
 }
-/* table tr:nth-child(even){
-        background-color: #f2f2f2;
-    } */
 a.back {
     position: fixed;
     border:  1px solid black;
@@ -119,9 +116,10 @@ h2{
     top: 40px;
 }
 .submitf {
-    position: fixed;
+    display: inline-block;
+    position: absolute;
     padding: 25px 0 0 15px;
-    float: left;
+    left: 0;
 }
 .subbtn{
     color: green;
@@ -130,4 +128,31 @@ h2{
     background-color: #4CAF50;
     color: white;
 }
+.upload{
+    display: block;
+    width: 150px
+} 
+.choose {
+    position: absolute;
+    float: left;
+    margin-top: 50px;
+}
+.choose button{
+    float: left;
+    margin-left: 20px;
+    color: green;  
+}
 
+#file{
+    width: 176px;
+    color: white;
+}
+.notification{
+    width: 200px;
+    color: white;
+    font-size: 12px;
+    left: 0;
+    top: 0;
+    float: left;
+    position: absolute;
+}
